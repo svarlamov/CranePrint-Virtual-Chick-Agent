@@ -53,6 +53,11 @@ public class AgentTCPSocket implements Runnable {
 						System.out.println(j.toJSONString());
 						outToCrane.writeBytes(j.toJSONString() + "\n");
 					}
+					else if(type == RequestType.QUEUE_EMPTY){
+						System.out.println("Queue is Empty");
+						outToCrane.writeBytes("ok\n");
+					}
+					outToCrane.close();
 				}
 			}
 		} catch(IOException e){
@@ -78,7 +83,7 @@ public class AgentTCPSocket implements Runnable {
 		outToServer.writeBytes(toSend + "\n");   
 		resp = inFromServer.readLine();
 		// TODO: Parse Success Message
-		System.out.println("FROM AGENT: " + resp); 
+		System.out.println("FROM CRANE: " + resp); 
 		clientSocket.close();
 		return resp;
 	}
@@ -90,6 +95,7 @@ public class AgentTCPSocket implements Runnable {
 	
 	private int getType(JSONObject j){
 		int ret = (int)(long)j.get("type");
+		//int ret = Integer.parseInt((String)j.get("type"));
 		System.out.println(ret);
 		return ret;
 	}

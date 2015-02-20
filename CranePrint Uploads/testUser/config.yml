@@ -1,0 +1,44 @@
+# --- DEFAULTS AND DESCRIPTIONS ---
+# The radius in blocks that the player must be from a fire or furnace in order to warm up
+#   warmthRadius: 2
+# The percent that a player would cool down or warm up per interval
+#   percentPerInterval: 2
+# The interval in milliseconds at which the warmth of a player would be incremented or decremented, respectively
+# Minor Performance Consideration: The smaller the interval, the more often the plugin will have to work
+#   refreshIntervalSeconds: 3
+# If you have ActionBar, then you can set the following to true, otherwise set it to false,
+# and players will be updated via their chat. Note that when true only the BarAPI will be utilized.
+#   useActionBarAPI: false
+# Do you want to freeze players in creative mode?
+#   freezeInCreative: true
+# Denote any worlds that shall never freeze, case sensitive
+# ***Note you can NOT use the tab key in a .yml file, instead use 2 spaces to indent***
+#   neverFreeze:
+# 	  - myWorld
+# Should players in creative mode freeze?
+#   freezeInCreative: false
+# Cooling Down Message
+#   coolingDownMessage: &9 You Are Cooling Down
+# Warming Up Message
+#   warmingUpMessage: &4 You Are Warming Up
+# About to Die Message
+#   aboutToDieMessage: You Are About to Die!
+# About to Die Message Percentage - When below this value it will show the about to die message
+#   showImenent: 10
+# The "frozenWorlds" field stores the currently frozen worlds. 
+# This field should not be modified for any reason
+#   frozenWorlds: []
+# --- BEGINNING OF CONFIG FILE ---
+# Do NOT change 'configVersion' for any reason; it is for internal use only
+configVersion: 2
+warmthRadius: 2
+percentPerInterval: 2
+refreshIntervalSeconds: 3
+useActionBarAPI: false
+freezeInCreative: false
+neverFreeze: []
+coolingDownMessage: &9 You Are Cooling Down
+warmingUpMessage: &4 You Are Warming Up
+aboutToDieMessage: You Are About to Die!
+showImenent: 10
+frozenWorlds: []
