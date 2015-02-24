@@ -95,8 +95,6 @@ public class AgentTCPSocket implements Runnable {
 	
 	private int getType(JSONObject j){
 		int ret = (int)(long)j.get("type");
-		//int ret = Integer.parseInt((String)j.get("type"));
-		System.out.println(ret);
 		return ret;
 	}
 }
