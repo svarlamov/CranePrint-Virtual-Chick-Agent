@@ -1,5 +1,9 @@
 package org.craneprint.virtual_chickagent;
 
+import org.craneprint.virtual_chickagent.files.PersistentFileManager;
+import org.craneprint.virtual_chickagent.tcp.AgentTCPSocket;
+import org.craneprint.virtual_chickagent.ui.TestJFrame;
+
 public class LuanchAgent {
 
 	public static void main(String[] args) {
