@@ -12,8 +12,8 @@ public class RespondHandShake {
 		if(auth){
 			JSONObject obj = new JSONObject();
 			obj.put("notes", "We Will Be Down for Scheduled Maintenance Next Monday, All Day.");
-			obj.put("status", PrinterStatus.PRINTING_CODE);
-			obj.put("queueSize", "2 Hours");
+			obj.put("status", PrinterStatus.READY_CODE);
+			//obj.put("queueSize", "2 Hours");
 			JSONObject tools = new JSONObject();
 			tools.put("tool0", "Blue, ABS");
 			tools.put("tool1", "Clear, ABS");
