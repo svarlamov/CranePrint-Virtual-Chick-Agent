@@ -10,62 +10,46 @@ import org.craneprint.virtual_chickagent.tcp.AgentTCPSocket;
 import org.craneprint.virtual_chickagent.tcp.RequestType;
 import org.json.simple.JSONObject;
 
-/*
- * Main.java
- * Basic JFrame with a basic JButton.
- * Created by: Joey
- * July 18, 2008
- */
-
 public class TestJFrame extends JFrame {
-	//private JTextField idField = new JTextField();
+	private JTextField idField = new JTextField();
 	
 	public TestJFrame(AgentTCPSocket socket){
-		/*
-		 * JFrame.
-		 */
-		setSize(600, 100);//Size of JFrame
+		setSize(600, 100);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);//Sets if its visible.
+		setVisible(true);
 		JPanel panel = new JPanel();
 		add(panel);
-		/*
-		 * JButton.
-		 */
+		
 		JButton startButton = new JButton("Request Job");//The JButton name.
 		panel.add(startButton);//Add the button to the JFrame.
 		startButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println("Request Job");//what the button says when clicked.
 				JSONObject obj = new JSONObject();
 			    obj.put("type", RequestType.GET_NEW_JOB);
-			    obj.put("printerId", 0);
+			    obj.put("printerId", new Integer(idField.getText()));
 			    try {
 					String resp = socket.sendCommand(obj.toJSONString());
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
-		});//Reads the action.
+		});
 		
-		JButton finishedButton = new JButton("TX Finished Call");//The JButton name.
-		panel.add(finishedButton);//Add the button to the JFrame.
+		JButton finishedButton = new JButton("TX Finished Call");
+		panel.add(finishedButton);
 		finishedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println("Finished");//what the button says when clicked.
 				JSONObject obj = new JSONObject();
 			    obj.put("type", RequestType.JOB_COMPLETE);
-			    // TODO: Actually get this value...
-			    obj.put("printerId", 0);
+			    obj.put("printerId", new Integer(idField.getText()));
 			    try {
 					String resp = socket.sendCommand(obj.toJSONString());
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
-		});//Reads the action.
-		//idField.setColumns(5);
-		//panel.add(idField);
+		});
+		idField.setColumns(5);
+		panel.add(idField);
 	}
 }

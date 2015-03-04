@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.craneprint.virtual_chickagent.tcp.RequestType;
 import org.craneprint.virtual_chickagent.config.Configs;
 import org.craneprint.virtual_chickagent.files.HandleFile;
 import org.craneprint.virtual_chickagent.files.PersistentFileManager;
@@ -21,12 +22,16 @@ public class AgentTCPSocket implements Runnable {
 	private static final String ip = "172.16.42.13";
 	private static final int cranePort = 6770;
 	private PersistentFileManager manager;
+	private String success;
 	private final HandleFile fileHandler = new HandleFile();
 	// TODO: Get this folder dynamically/from settings
 	private String fileFolder = "C:\\Users\\ckpcAdmin\\workspace\\CranePrint Virtual ChickAgent\\CranePrint Uploads";
 	
 	public AgentTCPSocket(PersistentFileManager m){
 		manager = m;
+		JSONObject j = new JSONObject();
+		j.put("type", RequestType.REQUEST_SUCCEEDED);
+		success = j.toJSONString();
 	}
 
 	@Override
@@ -48,7 +53,7 @@ public class AgentTCPSocket implements Runnable {
 						// TODO: With events and listeners or something, start printing that file!
 						manager.setupNewJob(fileHandler.buildFileFromJSON(jo, fileFolder + "\\" + jo.get("user") + "\\"));
 						// TODO: Respond with some more useful info, or at least make sure it actually succeeded
-						outToCrane.writeBytes("{" + '"' + "response" + '"' + ":" + '"' + "success" + '"' + "}" + "\n");
+						outToCrane.writeBytes(success + "\n");
 					} 
 					else if(type == RequestType.HAND_SHAKE_CODE){
 						// Respond to the handshake
@@ -58,7 +63,11 @@ public class AgentTCPSocket implements Runnable {
 					}
 					else if(type == RequestType.QUEUE_EMPTY){
 						System.out.println("Queue is Empty");
-						outToCrane.writeBytes("ok\n");
+						outToCrane.writeBytes(success + "\n");
+					} else{
+						JSONObject j = new JSONObject();
+						j.put("type", RequestType.UNKNOWN_REQUEST_CODE);
+						outToCrane.writeBytes(j.toJSONString() + "\n");
 					}
 					outToCrane.close();
 				}
